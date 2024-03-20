@@ -18,7 +18,7 @@ function msToTime(s) {
     return hrs + ' hours ' + mins + ' minutes and ' + secs + ' seconds';
 }
 
-function promptDelete(name, timeSinceAccess) {
+function promptDelete(name, timeSinceAccess, uid) {
     const msg = name + ' has not been accessed for ' + msToTime(timeSinceAccess) + '. Delete? (Y/n): ';
     const inp = prompt(msg);
     if (inp.toLowerCase() === 'y') {
@@ -27,6 +27,7 @@ function promptDelete(name, timeSinceAccess) {
                 console.error(err)
                 return
             }
+            // Notify user (possibly using uid)
         })
     }
 }
@@ -42,7 +43,7 @@ function checkExpiry() {
                 }
                 const timeSinceAccess = Date.now() - stats.atimeMs;
                 if (timeSinceAccess >= EXPIRY) {
-                    promptDelete(name, timeSinceAccess);
+                    promptDelete(name, timeSinceAccess, stats.uid);
                 }
             })
         })
