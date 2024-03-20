@@ -1,0 +1,15 @@
+{
+  "name": "file-expire",
+  "version": "1.0.0",
+  "description": "Gives a list of files that have not been accessed in a long time",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "file-expire"
+  },
+  "author": "Zaid Abdulameer",
+  "license": "ISC"
+}
