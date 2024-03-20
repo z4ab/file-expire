@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const prompt = require('prompt-sync')();
 
 const PATH = './test-dir';
-const EXPIRY = 5 * 60 * 1000;
+const EXPIRY = daysToMs(2);
 
 function daysToMs(days) {
     return days * 24 * 60 * 60 * 1000;
