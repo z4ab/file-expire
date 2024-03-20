@@ -1,14 +1,34 @@
 const fs = require('node:fs');
+const prompt = require('prompt-sync')();
 
 const PATH = './test-dir';
-const EXPIRY = 5*60*1000;
+const EXPIRY = 5 * 60 * 1000;
 
 function daysToMs(days) {
-    return days*24*60*60*1000;
+    return days * 24 * 60 * 60 * 1000;
+}
+function msToTime(s) {
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+    var hrs = (s - mins) / 60;
+
+    return hrs + ' hours ' + mins + ' minutes and ' + secs + ' seconds';
 }
 
-function promptDelete(name) {
-
+function promptDelete(name, timeSinceAccess) {
+    const msg = name + ' has not been accessed for ' + msToTime(timeSinceAccess) + '. Delete? (Y/n): ';
+    const inp = prompt(msg);
+    if (inp.toLowerCase() === 'y') {
+        fs.unlink(PATH + '/' + name, (err) => {
+            if (err) {
+                console.error(err)
+                return
+            }
+        })
+    }
 }
 function checkExpiry() {
     fs.readdir(PATH, (err, files) => {
@@ -22,7 +42,7 @@ function checkExpiry() {
                 }
                 const timeSinceAccess = Date.now() - stats.atimeMs;
                 if (timeSinceAccess >= EXPIRY) {
-                    promptDelete(name)
+                    promptDelete(name, timeSinceAccess);
                 }
             })
         })

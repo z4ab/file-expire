@@ -11,5 +11,8 @@
     "url": "file-expire"
   },
   "author": "Zaid Abdulameer",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
 }
